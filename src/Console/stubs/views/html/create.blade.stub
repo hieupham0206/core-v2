@@ -2,7 +2,7 @@
 
     @php /** @var \App\Models\%%modelNameCap%% $%%crudNameSingular%% */ @endphp
 
-    @section('pageTitle', __('actions.new_model', ['model' => $%%crudNameSingular%%->classLabel(true)]))
+    @section('pageTitle', __('actions.new_model', ['model' => $%%crudNameSingular%%->getFormTitle(true)]))
 
     @push('scripts')
         <script src="{{ mix('js/%%viewTemplateDir%%/form.js') }}"></script>
