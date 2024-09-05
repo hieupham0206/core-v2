@@ -57,7 +57,7 @@ class DummyClass extends Controller
     {
         {{validationRules}}
 
-        $requestDatas = $request->all();
+        $requestDatas = $request->except(['_token', '_method']);
 
         try {
             \DB::beginTransaction();
@@ -107,7 +107,7 @@ class DummyClass extends Controller
     {
         {{validationRules}}
 
-        $requestDatas = $request->all();
+        $requestDatas = $request->except(['_token', '_method']);
 
         try {
             \DB::beginTransaction();
