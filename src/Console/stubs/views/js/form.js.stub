@@ -43,20 +43,18 @@ $(function() {
                         if (redirectUrl !== undefined) {
                             window.success({text: msg, callback: () => location.href = redirectUrl})
                         }
-                    })
+                    }).finally(() => {
+					  	window.unblock()
+				    })
                 }
 
                 if (isConfirm) {
                     $(form).swal(result => {
                         if (result.isConfirmed) {
-                            window.blockPage()
-
                             save()
                         }
                     })
                 } else {
-                    window.blockPage()
-
                     save()
                 }
             } else {

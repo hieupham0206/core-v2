@@ -4,7 +4,7 @@ namespace DummyNamespace;
 
 BaseController
 use App\Models\{{modelName}};
-use Cloudteam\Core\{Tables\TableFacade, Utils\ModelFilter};
+use Cloudteam\CoreV2\{Tables\TableFacade, Utils\ModelFilter};
 use App\Http\Actions\ChangeModelState;
 TableNamespace
 use Illuminate\{View\View, Http\Request, Http\JsonResponse, Http\RedirectResponse, Routing\Redirector};
@@ -81,9 +81,7 @@ class DummyClass extends Controller
 
     public function show({{modelName}} ${{crudNameSingular}}): View
     {
-        return view('{{viewName}}.show', [
-            '{{crudNameSingular}}' => ${{crudNameSingular}}
-        ]);
+        abort(404);
     }
 
     public function edit({{modelName}} ${{crudNameSingular}}): View

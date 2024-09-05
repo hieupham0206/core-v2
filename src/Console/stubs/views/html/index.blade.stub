@@ -13,7 +13,7 @@
     @endsection
 
     @section('breadcrumbs')
-        {{ Breadcrumbs::render('%%viewTemplateDir%%.index') }}
+        {{ Breadcrumbs::render('%%crudName%%.index') }}
     @endsection
 
     <div class="card">
@@ -29,7 +29,7 @@
                     <tr class="fw-bold fs-6 bg-light">
                         <th>@lang('No.')</th>
                         %%formHeadingHtml%%
-                        <th style="width: 4%">@lang('Actions')</th>
+                        <th style="width: 4%">@lang('actions.actions')</th>
                     </tr>
                     </thead>
                     <tbody></tbody>

@@ -2,11 +2,11 @@
     <div class="row g-3">
         %%formSearchHtml%%
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
-			<label for="txt_from_date">{{ __('From date') }}</label>
+			<label class="form-label" for="txt_from_date">{{ __('From date') }}</label>
 			<input class="form-control text-datepicker" name="from_date" id="txt_from_date" value="{{ date('d-m-Y', strtotime('-1 days')) }}">
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
-			<label for="txt_to_date">{{ __('To date') }}</label>
+			<label class="form-label" for="txt_to_date">{{ __('To date') }}</label>
 			<input class="form-control text-datepicker" name="to_date" id="txt_to_date" value="{{ date('d-m-Y') }}">
 		</div>
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-11">

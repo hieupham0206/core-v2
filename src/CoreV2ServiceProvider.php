@@ -29,7 +29,7 @@ class CoreV2ServiceProvider extends ServiceProvider
         /*
          * Optional methods to load your package assets
          */
-         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'core-v2');
+         $this->loadJsonTranslationsFrom(__DIR__.'/../resources/lang');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'core-v2');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
