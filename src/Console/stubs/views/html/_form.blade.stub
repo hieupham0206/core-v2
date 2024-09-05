@@ -5,27 +5,29 @@
     @isset($method)
         @method('put')
     @endisset
+    <input type="hidden" value="{{ $%%crudNameSingular%%->id }}" id="txt_model_id">
+
     <div class="card-header">
-        <h3 class="card-label">
-            {{ $%%crudNameSingular%%->getFormTitle() }}
-        </h3>
-    </div>
+		<h3 class="card-title">
+			@lang('Details')
+		</h3>
+		<div class="card-toolbar fv-row"></div>
+	</div>
+
     <div class="card-body">
-<x-accordion-section icon="fa fa-info" title="{{ $%%crudNameSingular%%->label('info') }}" is-show="true">
-        <div class="form-group row">
+
+        <div class="row fv-row g-3">
 			%%formFieldsHtml%%
 		</div>
-</x-accordion-section>
+
     </div>
-    <div class="card-footer text-right bg-gray-100 border-top-0">
-        @if ($%%crudNameSingular%%->canBeSaved())
-            <button class="btn btn-brand btn-wide mr-2"><span>
-                <i class="far fa-save"></i>
-                <span>@lang('Save')</span></span>
-            </button>
-        @endif
-        <a href="{{ route('%%route%%.index') }}" class="btn btn-brand btn-hover-transparent-brand btn-wide" id="link_back" data-should-confirm="{{ ! $%%crudNameSingular%%->exists }}">
-            <span><i class="far fa-arrow-left"></i><span>@lang('Back')</span></span>
-        </a>
-    </div>
+
+    <div class="card-footer text-end bg-light-subtle">
+		@if ($%%crudNameSingular%%->canBeSaved())
+			<button class="btn btn-brand mr-2"><i class="fad fs-4 me-1 fa-save"></i>@lang('Save')</button>
+		@endif
+		<a href="{{ route('%%route%%.index') }}" class="btn btn-active-secondary" id="link_back" data-should-confirm="{{ ! $%%crudNameSingular%%->exists }}">
+			<i class="fad fs-4 me-1 fa-arrow-left"></i>@lang('Back')
+		</a>
+	</div>
 </form>

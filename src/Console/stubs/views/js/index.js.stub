@@ -1,5 +1,5 @@
-new Vue({
-	el: '#app',
+window.vueApp = new Vue({
+    el: '#kt_app_root',
 })
 
 $(function() {
@@ -28,6 +28,13 @@ $(function() {
     $body.on('click', '.btn-action-delete', function () {
         table{{ modelNameCap }}.actionDelete({btnDelete: $(this)})
     })
+
+    //$body.on('click', '.btn-export-{{ route }}', function(e) {
+	//	e.preventDefault()
+
+	//	let queryDatas = JSON.stringify($('#{{ route }}_search_form').serializeArray())
+	//	location.href = route('{{ route }}.export', {queryDatas})
+	//})
 
     //note: Tìm kiếm
     $('#{{ route }}_search_form').on('submit', function() {

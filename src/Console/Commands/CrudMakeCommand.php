@@ -91,7 +91,7 @@ class CrudMakeCommand extends Command
 
         $this->makeIndexTable($crud, $namespace, $model, $fields);
 
-        $this->makeModelTest($crud, $model);
+        //$this->makeModelTest($crud, $model);
 
         $this->makeView($namespace, $route, $fields, $validations);
 

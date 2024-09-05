@@ -608,17 +608,3 @@ if (! function_exists('realFileSize')) {
         return $size;
     }
 }
-
-if (! function_exists('tailShell')) {
-    function tailShell($filepath, $lines = 1, $search = '', $order = '')
-    {
-        ob_start();
-        if ($search) {
-            passthru("tail $order -n ".$lines.' '.escapeshellarg($filepath)." | grep -A 3 -B 3 '$search'");
-        } else {
-            passthru("tail $order -n ".$lines.' '.escapeshellarg($filepath));
-        }
-
-        return trim(ob_get_clean());
-    }
-}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudteam\CoreV2V2\Traits;
+namespace Cloudteam\CoreV2\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;

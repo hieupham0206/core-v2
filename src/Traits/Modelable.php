@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudteam\CoreV2V2\Traits;
+namespace Cloudteam\CoreV2\Traits;
 
 use Illuminate\Support\Str;
 
@@ -42,16 +42,6 @@ trait Modelable
         } catch (\Exception $e) {
             return false;
         }
-    }
-
-    public function getCreatedAtFormattedText()
-    {
-        return optional($this->created_at)->format(config('basecore.datetime_format', 'd-m-Y H:i:s'));
-    }
-
-    public function getUpdatedAtText()
-    {
-        return optional($this->updated_at)->format(config('basecore.datetime_format', 'd-m-Y H:i:s'));
     }
 
     public function getDescriptionEvent(string $eventName): string

@@ -1,15 +1,15 @@
 <?php
 
-namespace Cloudteam\CoreV2V2\Traits;
+namespace Cloudteam\CoreV2\Traits;
 
 trait Linkable
 {
     /**
-     * @param bool $absolute : Đường dẫn tuyệt đối
+     * @param  bool  $absolute : Đường dẫn tuyệt đối
      *
      * @return string
      */
-    public function getViewLink($absolute = false): string
+    public function getViewLink(bool $absolute = false): string
     {
         if (property_exists($this, 'route')) {
             return route("{$this->route}.show", $this, $absolute);
@@ -19,11 +19,11 @@ trait Linkable
     }
 
     /**
-     * @param bool $absolute : Đường dẫn tuyệt đối
+     * @param  bool  $absolute : Đường dẫn tuyệt đối
      *
      * @return string
      */
-    public function getEditLink($absolute = false): string
+    public function getEditLink(bool $absolute = false): string
     {
         if (property_exists($this, 'route')) {
             return route("{$this->route}.edit", $this, $absolute);
@@ -33,11 +33,11 @@ trait Linkable
     }
 
     /**
-     * @param bool $absolute : Đường dẫn tuyệt đối
+     * @param  bool  $absolute : Đường dẫn tuyệt đối
      *
      * @return string
      */
-    public function getDestroyLink($absolute = false): string
+    public function getDestroyLink(bool $absolute = false): string
     {
         if (property_exists($this, 'route')) {
             return route("{$this->route}.destroy", $this, $absolute);

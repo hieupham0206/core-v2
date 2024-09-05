@@ -6,7 +6,7 @@
  * Time: 1:43 PM
  */
 
-namespace Cloudteam\CoreV2V2\Traits;
+namespace Cloudteam\CoreV2\Traits;
 
 use Illuminate\Support\Str;
 

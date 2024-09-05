@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cloudteam\\CoreV2\\": "src"
+            "Cloudteam\\CoreV2\\": "src/"
         },
         "files": [
             "src/helpers.php"

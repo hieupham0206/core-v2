@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudteam\CoreV2V2\Tables;
+namespace Cloudteam\CoreV2\Tables;
 
 /**
  * Class TableFacade

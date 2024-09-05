@@ -1,5 +1,5 @@
-new Vue({
-	el: '#app',
+window.vueApp = new Vue({
+    el: '#kt_app_root',
 })
 
 $(function() {
@@ -11,7 +11,7 @@ $(function() {
     let validation = FormValidation.formValidation(form,
         {
             locale: htmlLang === 'en' ? 'en_US' : 'vi_VN',
-            localization: htmlLang === 'en' ? FormValidation.locales.en_US : FormValidation.locales.vi_VN,
+            localization: htmlLang === 'en' ? 'en_US' : 'vi_VN',
             fields: {
                 name: {
                     validators: {
@@ -21,12 +21,12 @@ $(function() {
             },
             plugins: {
                 trigger: new FormValidation.plugins.Trigger(),
-                submitButton: new FormValidation.plugins.SubmitButton(),
-                bootstrap: new FormValidation.plugins.Bootstrap(),
 				declarative: new FormValidation.plugins.Declarative(),
+				submitButton: new FormValidation.plugins.SubmitButton(),
 				excluded: new FormValidation.plugins.Excluded(),
-                autoFocus: new FormValidation.plugins.AutoFocus(),
-                //defaultSubmit: new FormValidation.plugins.DefaultSubmit(), // Uncomment this line to enable normal button submit after form validation
+				bootstrap5: new FormValidation.plugins.Bootstrap5({
+					rowSelector: '.fv-row',
+				}),
             },
         },
     )

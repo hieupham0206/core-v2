@@ -1,6 +1,6 @@
 <?php
 
-namespace Cloudteam\CoreV2V2\Traits;
+namespace Cloudteam\CoreV2\Traits;
 
 use Illuminate\Support\Str;
 use ReflectionClass;
@@ -9,33 +9,6 @@ use function get_class;
 
 trait Labelable
 {
-    public function label($field = '', $capitalize = false)
-    {
-        $modelName       = $this->table_name_singular;
-        $translateKey    = "{$modelName}.{$field}";
-        $labelFromModule = __($translateKey);
-
-        if ($labelFromModule === $translateKey) {
-            $field = ucfirst(camel2words(strtolower($field)));
-            $label = __($field);
-            if ($capitalize) {
-                $label = __(Str::title(camel2words(strtolower($field))));
-            }
-
-            if (is_array($label)) {
-                return $field;
-            }
-
-            return $label;
-        }
-
-        if (is_array($labelFromModule)) {
-            return $field;
-        }
-
-        return $labelFromModule;
-    }
-
     public function classLabel($lcfirst = false)
     {
         try {
@@ -59,23 +32,28 @@ trait Labelable
         }
     }
 
-    public function solidLabel($text, $context = 'success', $size = 'sm'): string
+    public function badgeLabel($text, $context = 'success', $customClass = '', $size = ''): string
     {
-        return '<span class="font-weight-bold label label-inline label-rounded label-' . $context . ' label-' . $size . '">' . $text . '</span>';
-    }
-
-    public function outlineLabel($text, $context = 'success', $size = 'sm'): string
-    {
-        return '<span class="font-weight-bold label label-inline label-rounded label-outline-' . $context . ' label-' . $size . '">' . $text . '</span>';
-    }
-
-    public function lightLabel($text, $context = 'success', $size = 'sm'): string
-    {
-        return '<span class="font-weight-bold label label-inline label-rounded label-light-' . $context . ' label-' . $size . '">' . $text . '</span>';
+        return "<span class='fw-bold badge badge-$context' $customClass $size>$text</span>";
     }
 
     public function getModelTitleAttribute(): ?string
     {
         return $this->classLabel(true);
+    }
+
+    public function getCreatedAtTextAttribute(): ?string
+    {
+        return optional($this->created_at)->format(config('core.datetime_format', 'd-m-Y H:i:s'));
+    }
+
+    public function getUpdatedAtTextAttribute(): ?string
+    {
+        return optional($this->updated_at)->format(config('core.datetime_format', 'd-m-Y H:i:s'));
+    }
+
+    public function getDeletedAtTextAttribute(): ?string
+    {
+        return optional($this->deleted_at)->format(config('core.datetime_format', 'd-m-Y H:i:s'));
     }
 }

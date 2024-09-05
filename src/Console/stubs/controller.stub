@@ -24,8 +24,7 @@ class DummyClass extends Controller
         return view( '{{viewName}}.index', [
             '{{crudNameSingular}}' => ${{crudNameSingular}},
             'headerConfigs' => [
-                'model' => ${{crudNameSingular}},
-                'caption' => '',
+                'caption' => null,
                 'createUrl' => route('{{routeName}}.create'),
                 'buttons' => []
             ]

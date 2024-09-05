@@ -362,13 +362,15 @@ class CrudViewCommand extends Command
         foreach ($this->formFields as $value) {
             $field = $value['name'];
 
-            $label                         = '{{ $' . $this->crudNameSingular . '->label(\'' . $field . '\') }}';
+            $label                         = '{{ '. '__(\''.$this->crudNameSingular.'.' . $field . '\') }}';
             $value                         = '{{ $' . $this->crudNameSingular . '->' . $field . ' }}';
+
             $this->formHeadingHtml         .= '<th>' . $label . '</th>';
-            $this->formSearchHtml          .= '<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
-                                                    <label for="txt_' . $field . '">' . $label . '</label>
+            $this->formSearchHtml          .= '<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                                    <label class="form-label" for="txt_' . $field . '">' . $label . '</label>
                                                     <input class="form-control" name="' . $field . '" id="txt_' . $field . '">
                                                </div>' . "\n";
+
             $this->formBodyHtmlForShowView .= '<tr>
                                                 <th class="w-25"> ' . $label . ' </th>
                                                 <td> ' . $value . ' </td>
@@ -460,7 +462,7 @@ class CrudViewCommand extends Command
     {
         $formGroup = File::get($this->viewDirectoryPath . 'form-fields/wrap-field.blade.stub');
 
-        $labelText = sprintf("$%s->label('%s')", $this->crudNameSingular, str_replace('_id', '', $item['name']));
+        $labelText = sprintf("__('%s.%s')", $this->crudNameSingular, str_replace('_id', '', $item['name']));
 
         return sprintf($formGroup, $item['name'], $prefix, $labelText, $field);
     }

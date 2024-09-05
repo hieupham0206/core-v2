@@ -1,17 +1,23 @@
-@php /** @var \App\Models\%%modelNameCap%% $%%crudNameSingular%% */
-$breadcrumbs = ['breadcrumb' => '%%route%%.edit', 'model' => $%%crudNameSingular%%];
-@endphp
+<x-default-layout>
 
-@extends("layout.default")
+    @php /** @var \App\Models\%%modelNameCap%% $%%crudNameSingular%% */ @endphp
 
-@section('scripts')
-	<script src="{{ mix('js/%%viewTemplateDir%%/form.js') }}"></script>
-@endsection
+    @section('pageTitle', __('actions.edit_model', ['model' => $%%crudNameSingular%%->classLabel(true)]))
 
-@section('pageTitle', __('Edit') . " $%%crudNameSingular%%->model_title")
+    @push('scripts')
+        <script src="{{ mix('js/%%viewTemplateDir%%/form.js') }}"></script>
+    @endpush
 
-@section('content')
+    @section('title')
+        {{ $%%crudNameSingular%%->getFormTitle() }}
+    @endsection
+
+    @section('breadcrumbs')
+        {{ Breadcrumbs::render('%%route%%.edit', ['model' => $%%crudNameSingular%%]) }}
+    @endsection
+
     <div class="card">
-        @include('modules.%%userViewPath%%._form', ['caption' => __('action.Edit Model', ['model' => $%%crudNameSingular%%->classLabel(true)])])
+        @include('modules.%%userViewPath%%._form')
     </div>
-@endsection
+
+</x-default-layout>
