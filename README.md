@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/cloudteam/core-v2.svg?style=flat-square)](https://packagist.org/packages/cloudteam/core-v2)
 [![Total Downloads](https://img.shields.io/packagist/dt/cloudteam/core-v2.svg?style=flat-square)](https://packagist.org/packages/cloudteam/core-v2)
-![GitHub Actions](https://github.com/cloudteam/core-v2/actions/workflows/main.yml/badge.svg)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
