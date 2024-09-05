@@ -1,0 +1,183 @@
+<?php
+
+namespace DummyNamespace;
+
+BaseController
+use App\Models\{{modelName}};
+use Cloudteam\Core\{Tables\TableFacade, Utils\ModelFilter};
+use App\Http\Actions\ChangeModelState;
+TableNamespace
+use Illuminate\{View\View, Http\Request, Http\JsonResponse, Http\RedirectResponse, Routing\Redirector};
+
+class DummyClass extends Controller
+{
+     /**
+      * Tên dùng để phân quyền
+      * @var string
+      */
+	 protected string $name = '{{tableNameSingular}}';
+
+    public function index(): View
+    {
+        ${{crudNameSingular}} = new {{modelName}};
+
+        return view( '{{viewName}}.index', [
+            '{{crudNameSingular}}' => ${{crudNameSingular}},
+            'headerConfigs' => [
+                'model' => ${{crudNameSingular}},
+                'caption' => '',
+                'createUrl' => route('{{routeName}}.create'),
+                'buttons' => []
+            ]
+        ] );
+    }
+
+    public function table(): string
+    {
+    	return ( new TableFacade( new {{modelName}}Table() ) )->getDataTable();
+    }
+
+    public function create(): View
+    {
+        return view('{{viewName}}.create', [
+            '{{crudNameSingular}}' => new {{modelName}},
+            'action' => route('{{routeName}}.store', [], false)
+        ]);
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return RedirectResponse|JsonResponse|Redirector
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function store(Request $request)
+    {
+        {{validationRules}}
+
+        $requestDatas = $request->all();
+
+        try {
+            \DB::beginTransaction();
+
+            ${{crudNameSingular}} = {{modelName}}::create($requestDatas);
+
+            \DB::commit();
+
+			$redirectUrl = ${{crudNameSingular}}->getRedirectUrlAfterSave();
+
+            return $this->redirectResponse([
+                'message'      => __('Data created successfully'),
+                'redirect_url' => $redirectUrl,
+            ], $redirectUrl);
+        } catch (\Exception $e) {
+            \DB::rollBack();
+
+			return $this->errorResponse($e);
+        }
+    }
+
+    public function show({{modelName}} ${{crudNameSingular}}): View
+    {
+        return view('{{viewName}}.show', [
+            '{{crudNameSingular}}' => ${{crudNameSingular}}
+        ]);
+    }
+
+    public function edit({{modelName}} ${{crudNameSingular}}): View
+    {
+        return view('{{viewName}}.edit', [
+            '{{crudNameSingular}}' => ${{crudNameSingular}},
+            'method' => 'put',
+            'action' => route('{{routeName}}.update', ${{crudNameSingular}}, false)
+        ]);
+    }
+
+    /**
+	 * @param Request $request
+     * @param  {{modelName}} ${{crudNameSingular}}
+     *
+     * @return RedirectResponse|JsonResponse|Redirector
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     * @throws \Exception
+     * @throws \Throwable
+     */
+    public function update(Request $request, {{modelName}} ${{crudNameSingular}})
+    {
+        {{validationRules}}
+
+        $requestDatas = $request->all();
+
+        try {
+            \DB::beginTransaction();
+            ${{crudNameSingular}}->update($requestDatas);
+
+            \DB::commit();
+
+			$redirectUrl = ${{crudNameSingular}}->getRedirectUrlAfterSave();
+
+            return $this->redirectResponse([
+                'message'      => __('Data edited successfully'),
+                'redirect_url' => $redirectUrl,
+            ], $redirectUrl);
+        } catch (\Exception $e) {
+            \DB::rollBack();
+
+			return $this->errorResponse($e);
+        }
+    }
+
+    public function destroy({{modelName}} ${{crudNameSingular}}): JsonResponse
+    {
+        try {
+        	${{crudNameSingular}}->delete();
+
+            return $this->asJson( [
+                'message' => __('Data deleted successfully')
+            ] );
+        } catch ( \Exception $e ) {
+			return $this->errorResponse($e);
+        }
+    }
+
+    public function {{crudName}}(): JsonResponse
+    {
+        $modelFilter = new ModelFilter({{modelName}}::query());
+
+		${{crudNameSingular}}Builder = $modelFilter->filter();
+        ${{crudName}} = ${{crudNameSingular}}Builder->selectRaw('id, name');
+
+        $totalCount = ${{crudName}}->count();
+        ${{crudName}}  = $modelFilter->getData(${{crudName}});
+
+        return $this->asJson([
+            'total_count' => $totalCount,
+            'items'       => ${{crudName}}->toArray(),
+        ]);
+    }
+
+    public function changeState(Request $request, ChangeModelState $action, {{modelName}} ${{crudNameSingular}}): JsonResponse
+    {
+		$this->validate($request, [
+			'state' => 'numeric'
+		]);
+
+        $state = $request->input('state');
+
+        $result = $action->execute(${{crudNameSingular}}, $state);
+
+        if ($result) {
+            return $this->asJson([
+                'message' => __('Data edited successfully'),
+            ]);
+        }
+
+        return $this->asJson([
+            'message' => __('Data edited unsuccessfully'),
+        ]);
+    }
+}

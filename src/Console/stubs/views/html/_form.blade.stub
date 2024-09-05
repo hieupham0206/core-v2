@@ -1,0 +1,31 @@
+@php /** @var \App\Models\%%modelNameCap%% $%%crudNameSingular%% */ @endphp
+
+<form id="%%crudName%%_form" class="form" method="post" action="{{ $action }}" autocomplete="off" data-confirm="true">
+    @csrf
+    @isset($method)
+        @method('put')
+    @endisset
+    <div class="card-header">
+        <h3 class="card-label">
+            {{ $%%crudNameSingular%%->getFormTitle() }}
+        </h3>
+    </div>
+    <div class="card-body">
+<x-accordion-section icon="fa fa-info" title="{{ $%%crudNameSingular%%->label('info') }}" is-show="true">
+        <div class="form-group row">
+			%%formFieldsHtml%%
+		</div>
+</x-accordion-section>
+    </div>
+    <div class="card-footer text-right bg-gray-100 border-top-0">
+        @if ($%%crudNameSingular%%->canBeSaved())
+            <button class="btn btn-brand btn-wide mr-2"><span>
+                <i class="far fa-save"></i>
+                <span>@lang('Save')</span></span>
+            </button>
+        @endif
+        <a href="{{ route('%%route%%.index') }}" class="btn btn-brand btn-hover-transparent-brand btn-wide" id="link_back" data-should-confirm="{{ ! $%%crudNameSingular%%->exists }}">
+            <span><i class="far fa-arrow-left"></i><span>@lang('Back')</span></span>
+        </a>
+    </div>
+</form>

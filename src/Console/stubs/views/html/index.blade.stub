@@ -1,0 +1,36 @@
+@php /** @var \App\Models\%%modelNameCap%% $%%crudNameSingular%% */
+$breadcrumbs = ['breadcrumb' => '%%route%%.index'];
+@endphp
+
+@extends("layout.default")
+
+@section('scripts')
+    <script src="{{ mix('js/%%viewTemplateDir%%/index.js') }}"></script>
+@endsection
+
+@section('pageTitle', $%%crudNameSingular%%->classLabel())
+
+@section('content')
+    <div class="card">
+        <!--begin::Card header-->
+		@include('layout.partials.index._index_header', $headerConfigs)
+		<!--end::Card header-->
+
+        <div class="card-body py-4">
+            @include('layout.partials.index._search', ['form' => view('modules.%%userViewPath%%._search', ['%%crudNameSingular%%' => $%%crudNameSingular%%])])
+            <div class="table-responsive">
+				<table class="table table-hover table-head-custom table-head-bg table-vertical-center nowrap" id="table_%%crudName%%">
+					<thead>
+						<tr>
+							{{--<th style="width: 5%"><label class="checkbox checkbox-single checkbox-all"><input type="checkbox"><span></span></label></th>--}}
+							<th>@lang('No.')</th>
+							%%formHeadingHtml%%
+							<th>@lang('Actions')</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+        	</div>
+        </div>
+    </div>
+@endsection

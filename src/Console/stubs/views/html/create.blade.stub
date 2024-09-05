@@ -1,0 +1,17 @@
+@php /** @var \App\Models\%%modelNameCap%% $%%crudNameSingular%% */
+$breadcrumbs = ['breadcrumb' => '%%route%%.create', 'model' => $%%crudNameSingular%%];
+@endphp
+
+@extends("layout.default")
+
+@section('scripts')
+	<script src="{{ mix('js/%%viewTemplateDir%%/form.js') }}"></script>
+@endsection
+
+@section('pageTitle', __('action.Add new Model', ['model' => $%%crudNameSingular%%->classLabel(true)]))
+
+@section('content')
+    <div class="card">
+        @include('modules.%%userViewPath%%._form', ['caption' => __('action.Create Model', ['model' => $%%crudNameSingular%%->label('info')])])
+    </div>
+@endsection

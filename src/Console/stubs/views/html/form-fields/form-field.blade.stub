@@ -1,0 +1,2 @@
+<input type="%%fieldType%%" class="form-control%%customClass%%" name="%%itemName%%" id="txt_%%itemName%%" value="{{ $%%crudNameSingular%%->%%itemName%% }}"
+data-fv-not-empty="true" maxlength="50">

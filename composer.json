@@ -1,0 +1,55 @@
+{
+    "name": "cloudteam/core-v2",
+    "description": "Cloudteam Core V2",
+    "keywords": [
+        "cloudteam",
+        "core-v2"
+    ],
+    "homepage": "https://github.com/cloudteam/core-v2",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Hieu Pham",
+            "email": "hieu.pham@cloudteam.vn",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": "~11"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Cloudteam\\CoreV2\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cloudteam\\CoreV2\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Cloudteam\\CoreV2\\CoreV2ServiceProvider"
+            ],
+            "aliases": {
+                "CoreV2": "Cloudteam\\CoreV2\\CoreV2Facade"
+            }
+        }
+    }
+}
