@@ -1,13 +1,13 @@
 <form id="%%crudName%%_search_form" autocomplete="off">
     <div class="row g-3">
         %%formSearchHtml%%
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
-			<label class="form-label" for="txt_from_date">{{ __('From date') }}</label>
-			<input class="form-control text-datepicker" name="from_date" id="txt_from_date" value="{{ date('d-m-Y', strtotime('-1 days')) }}">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+			<label class="form-label" for="txt_from_date">{{ __('inputs.search.from_date') }}</label>
+			<input class="form-control text-datepicker" name="from_date" id="txt_from_date" value="{{ date('d-m-Y', strtotime('-1 days')) }}" autocomplete="off">
 		</div>
-		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 form-group">
-			<label class="form-label" for="txt_to_date">{{ __('To date') }}</label>
-			<input class="form-control text-datepicker" name="to_date" id="txt_to_date" value="{{ date('d-m-Y') }}">
+		<div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+			<label class="form-label" for="txt_to_date">{{ __('inputs.search.to_date') }}</label>
+			<input class="form-control text-datepicker" name="to_date" id="txt_to_date" value="{{ date('d-m-Y') }}" autocomplete="off">
 		</div>
         <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mt-11">
 			<button class="btn btn-brand" id="btn_filter"><i class="fad fa-search fs-4 me-1"></i> @lang('actions.search')</button>

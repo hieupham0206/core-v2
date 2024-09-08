@@ -13,7 +13,8 @@ $(function() {
                 q.filters = JSON.stringify($('#{{ route }}_search_form').serializeArray())
             },
         }),
-        'conditionalPaging': true
+        'conditionalPaging': true,
+        'processing': true,
     })
     $body.on('click', '.btn-action-change-state', function() {
         let message = $(this).data('message')

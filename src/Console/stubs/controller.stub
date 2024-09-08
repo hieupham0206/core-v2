@@ -69,7 +69,7 @@ class DummyClass extends Controller
 			$redirectUrl = ${{crudNameSingular}}->getRedirectUrlAfterSave();
 
             return $this->redirectResponse([
-                'message'      => __('Data created successfully'),
+                'message'      => __('messages.crud.created'),
                 'redirect_url' => $redirectUrl,
             ], $redirectUrl);
         } catch (\Exception $e) {
@@ -118,7 +118,7 @@ class DummyClass extends Controller
 			$redirectUrl = ${{crudNameSingular}}->getRedirectUrlAfterSave();
 
             return $this->redirectResponse([
-                'message'      => __('Data edited successfully'),
+                'message'      => __('messages.crud.updated'),
                 'redirect_url' => $redirectUrl,
             ], $redirectUrl);
         } catch (\Exception $e) {
@@ -134,7 +134,7 @@ class DummyClass extends Controller
         	${{crudNameSingular}}->delete();
 
             return $this->asJson( [
-                'message' => __('Data deleted successfully')
+                'message' => __('messages.crud.deleted')
             ] );
         } catch ( \Exception $e ) {
 			return $this->errorResponse($e);
@@ -169,12 +169,12 @@ class DummyClass extends Controller
 
         if ($result) {
             return $this->asJson([
-                'message' => __('Data edited successfully'),
+                'message' => __('messages.crud.updated'),
             ]);
         }
 
         return $this->asJson([
-            'message' => __('Data edited unsuccessfully'),
+            'message' => __('messages.crud.updated_fail'),
         ]);
     }
 }
