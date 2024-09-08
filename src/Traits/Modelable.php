@@ -46,7 +46,7 @@ trait Modelable
 
     public function getDescriptionEvent(string $eventName): string
     {
-        $displayText = $this->{$this->display};
+        $displayText = $this->{$this->displayAttribute};
 
         if ($this->logAction) {
             $eventName = $this->logAction;

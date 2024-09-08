@@ -22,7 +22,9 @@ class {{modelName}}Table extends DataTable {
 		    $htmlAction = $this->generateButton($modelName, ${{crudNameSingular}}, [$canEdit{{modelName}}, $canDelete{{modelName}}]);
 
 			$dataArray[] = [
-				//'<label class="checkbox checkbox-single checkbox-brand"><input type="checkbox" value="'.${{crudNameSingular}}->id.'"><span></span></label>',
+				//"<div class='form-check form-check-sm form-check-custom form-check-solid'>
+				//	<input class='form-check-input' type='checkbox' value='${{crudNameSingular}}->id' data-index='${{crudNameSingular}}->id'>
+			  	//</div>",
 				++$key + $this->start,
 				{{tableValue}}
 				$htmlAction
