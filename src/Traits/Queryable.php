@@ -82,14 +82,14 @@ trait Queryable
 		return $excludes ? $query->whereNotIn($field, $excludes) : $query;
 	}
 
-	/**
-	 * @param $query
-	 * @param array $filterDatas   Dữ liệu dùng để filter
-	 * @param string $boolean
-	 * @param array $filterConfigs Custom filter config
-	 *
-	 * @return mixed
-	 */
+    /**
+     * @param $query
+     * @param  array  $filterDatas  Dữ liệu dùng để filter
+     * @param  string  $boolean
+     * @param  array|null  $filterConfigs  Custom filter config
+     * @param  bool  $insertTableName
+     * @return mixed
+     */
 	public function scopeFilters($query, $filterDatas, $boolean = 'and', array $filterConfigs = null, $insertTableName = true)
 	{
 		if ( ! property_exists($this, 'filters') || blank($filterDatas)) {
