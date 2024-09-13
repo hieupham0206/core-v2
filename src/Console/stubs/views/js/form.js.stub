@@ -43,9 +43,7 @@ $(function() {
                         if (redirectUrl !== undefined) {
                             window.success({text: msg, callback: () => location.href = redirectUrl})
                         }
-                    }).finally(() => {
-					  	window.unblock()
-				    })
+                    }).finally(window.unblock)
                 }
 
                 if (isConfirm) {
