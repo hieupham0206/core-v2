@@ -13,7 +13,7 @@ class {{modelName}}Table extends DataTable {
 		$this->column = $this->getSortColumn();
 		${{crudNameSingular}}s = $this->getModels();
 		$dataArray    = [];
-		$modelName    = lcfirst(__('{{permissionName}}.{{permissionName}}'));
+		$modelName    = __('{{permissionName}}.{{permissionName}}');
 
         [$canEdit{{modelName}}, $canDelete{{modelName}}] = cans(['edit_{{permissionName}}', 'delete_{{permissionName}}']);
 

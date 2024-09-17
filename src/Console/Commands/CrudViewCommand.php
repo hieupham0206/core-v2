@@ -362,7 +362,9 @@ class CrudViewCommand extends Command
         foreach ($this->formFields as $value) {
             $field = $value['name'];
 
-            $label                         = '{{ '. '__(\''.$this->crudNameSingular.'.' . $field . '\') }}';
+            $nameSingularSnakeCase = Str::snake($this->crudNameSingular);
+
+            $label                         = '{{ '. '__(\''.$nameSingularSnakeCase.'.' . $field . '\') }}';
             $value                         = '{{ $' . $this->crudNameSingular . '->' . $field . ' }}';
 
             $this->formHeadingHtml         .= '<th>' . $label . '</th>';
@@ -401,7 +403,7 @@ class CrudViewCommand extends Command
             'create'  => ['crudName', 'modelNameCap', 'crudNameSingular', 'route', 'userViewPath', 'viewTemplateDir'],
             'edit'    => ['crudName', 'modelNameCap', 'crudNameSingular', 'title', 'route', 'userViewPath', 'viewTemplateDir'],
             '_form'   => ['formFieldsHtml', 'route', 'crudName', 'modelNameCap', 'crudNameSingular'],
-            'show'    => ['formBodyHtmlForShowView', 'crudNameSingular', 'route', 'modelNameCap'],
+            //'show'    => ['formBodyHtmlForShowView', 'crudNameSingular', 'route', 'modelNameCap'],
         ];
     }
 
@@ -518,11 +520,13 @@ class CrudViewCommand extends Command
             $customClass = ' text-mobile-phone';
         }
 
+        $nameSingularSnakeCase = Str::snake($this->crudNameSingular);
+
         $type   = str_replace("'", '', $item['type']);
         $markup = File::get($this->viewDirectoryPath . 'form-fields/form-field.blade.stub');
         $markup = str_replace(
             [$start . 'required' . $end, $start . 'fieldType' . $end, $start . 'itemName' . $end, $start . 'crudNameSingular' . $end, $start . 'customClass' . $end],
-            [$required, $this->typeLookup[$type], $item['name'], $this->crudNameSingular, $customClass],
+            [$required, $this->typeLookup[$type], $item['name'], $nameSingularSnakeCase, $customClass],
             $markup);
 
         return $this->wrapField(

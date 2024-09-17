@@ -1,4 +1,5 @@
-<?php /** @noinspection PhpInconsistentReturnPointsInspection */
+<?php
+/** @noinspection PhpInconsistentReturnPointsInspection */
 
 namespace Cloudteam\CoreV2\Console\Commands;
 
@@ -6,6 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+
 use function dirname;
 use function in_array;
 
@@ -61,7 +63,7 @@ class CrudMakeCommand extends Command
     {
         $model          = Str::studly(Str::singular($crud));
         $table          = $crud;
-        $controllerName = Str::plural($model) . 'Controller';
+        $controllerName = Str::plural($model).'Controller';
         $route          = Str::plural(Str::snake($model));
 
         //optional
@@ -107,8 +109,8 @@ class CrudMakeCommand extends Command
     /**
      * Replace the modelName for the given stub.
      *
-     * @param string $stub
-     * @param string $route
+     * @param  string  $stub
+     * @param  string  $route
      *
      * @return $this
      */
@@ -122,8 +124,8 @@ class CrudMakeCommand extends Command
     /**
      * Replace the modelName for the given stub.
      *
-     * @param string $stub
-     * @param string $modelName
+     * @param  string  $stub
+     * @param  string  $modelName
      *
      * @return $this
      */
@@ -137,8 +139,8 @@ class CrudMakeCommand extends Command
     /**
      * Replace the modelName for the given stub.
      *
-     * @param string $stub
-     * @param string $modelName
+     * @param  string  $stub
+     * @param  string  $modelName
      *
      * @return $this
      */
@@ -152,8 +154,8 @@ class CrudMakeCommand extends Command
     /**
      * Replace the modelName for the given stub.
      *
-     * @param string $stub
-     * @param string $modelName
+     * @param  string  $stub
+     * @param  string  $modelName
      *
      * @return $this
      */
@@ -168,11 +170,11 @@ class CrudMakeCommand extends Command
     {
         $table             = Str::singular($table);
         $permissions       = $permissions ?? ['view', 'create', 'edit', 'delete'];
-        $jsonFile          = base_path() . '/database/files/permissions.json';
+        $jsonFile          = base_path().'/database/files/permissions.json';
         $permissionConfigs = getPermissionConfig();
 
         $namespace = lcfirst($namespace);
-        if ( ! isset($permissionConfigs[$namespace])) {
+        if (! isset($permissionConfigs[$namespace])) {
             $permissionConfigs[$namespace] = [
                 'modules' => [
                     $table => [
@@ -185,7 +187,7 @@ class CrudMakeCommand extends Command
             return true;
         }
 
-        if ( ! in_array($table, $permissionConfigs[$namespace], true)) {
+        if (! in_array($table, $permissionConfigs[$namespace], true)) {
             $permissionConfigs[$namespace]['modules'][$table]['actions'] = $permissions;
         }
 
@@ -196,18 +198,18 @@ class CrudMakeCommand extends Command
 
     private function makeRoute($namespace, $table): bool
     {
-        $jsonFile = base_path() . '/routes/config/routes.json';
+        $jsonFile = base_path().'/routes/config/routes.json';
         $routes   = getRouteConfig();
 
         $jsonKey = lcfirst($namespace);
-        if ( ! isset($routes[$jsonKey])) {
+        if (! isset($routes[$jsonKey])) {
             $routes[$jsonKey] = [$table];
             $this->writeJsonConfig($routes, $jsonFile);
 
             return true;
         }
 
-        if ( ! in_array($table, $routes[$jsonKey], true)) {
+        if (! in_array($table, $routes[$jsonKey], true)) {
             $routes[$jsonKey][] = $table;
         }
 
@@ -218,13 +220,13 @@ class CrudMakeCommand extends Command
 
     private function makeMenu($namespace, $table): bool
     {
-        $jsonFile = base_path() . '/routes/config/menus.json';
+        $jsonFile = base_path().'/routes/config/menus.json';
         $menus    = getMenuConfig();
 
-        $jsonKey = lcfirst($namespace);
+        $jsonKey       = lcfirst($namespace);
+        $tableSingular = Str::singular($table);
 
         if (isset($menus[$jsonKey])) {
-
             if (isset($menus[$jsonKey]['modules'][$table]) && $menus[$jsonKey]['modules'][$table]['icon']) {
                 $this->info('Not update menu');
 
@@ -246,7 +248,7 @@ class CrudMakeCommand extends Command
 
         $menus[$jsonKey] = [
             'modules' => [
-                $table => [
+                $tableSingular => [
                     'icon'   => '',
                     'parent' => '',
                     'route'  => "$table.index",
@@ -271,20 +273,20 @@ class CrudMakeCommand extends Command
      */
     private function makeJs($crud, $namespace, $route, $model): void
     {
-        $jsPath = resource_path('js/') . $route;
+        $jsPath = resource_path('js/').$route;
         if ($namespace !== '') {
-            $jsPath = resource_path('js/modules/') . lcfirst($namespace) . '/' . $route;
+            $jsPath = resource_path('js/modules/').lcfirst($namespace).'/'.$route;
         }
         $jsPath = str_replace('\\', '/', $jsPath);
         $file   = new Filesystem();
-        if ( ! is_dir($jsPath)) {
+        if (! is_dir($jsPath)) {
             $file->makeDirectory($jsPath, 0777, true);
         }
         $jsFiles = ['index.js.stub', 'form.js.stub'];
         foreach ($jsFiles as $jsFile) {
             $fileJsName = str_replace('.stub', '', $jsFile);
             $file       = new Filesystem();
-            $stubPath   = str_replace('\\', '/', dirname(__DIR__) . "/stubs/views/js/{$jsFile}");
+            $stubPath   = str_replace('\\', '/', dirname(__DIR__)."/stubs/views/js/{$jsFile}");
             $stub       = $file->get($stubPath);
 
             $this->replaceRoute($stub, $crud)
@@ -292,7 +294,7 @@ class CrudMakeCommand extends Command
                  ->replaceModelNameCap($stub, $model)
                  ->replaceModelNameUnCap($stub, $model);
 
-            $file->put($jsPath . "/{$fileJsName}", $stub);
+            $file->put($jsPath."/{$fileJsName}", $stub);
         }
 
         $this->info('Make js folder successfully');
