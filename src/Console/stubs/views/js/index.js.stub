@@ -48,4 +48,8 @@ $(function() {
         $('#{{ route }}_search_form').clearFormData()
         table{{ modelNameCap }}.reloadTable()
     })
+
+    //$('#').on('click', function () {
+	//   let ids = $('#table_{{ route }} .form-check-input:checked').getValue()
+	//})
 })

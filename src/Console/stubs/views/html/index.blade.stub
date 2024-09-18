@@ -27,7 +27,7 @@
                 <table class="table table-row-bordered align-middle gy-3 gs-5 nowrap" id="table_%%crudName%%">
                     <thead>
                     <tr class="fw-bold fs-6 bg-light">
-{{--                        <th><div class="form-check form-check-sm form-check-custom form-check-solid"><input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#table_users .form-check-input" value="1"></div></th>--}}
+{{--                        <th><div class="form-check form-check-brand form-check-sm form-check-custom form-check-solid"><input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#table_%%crudName%% .form-check-input"></div></th>--}}
                         <th>@lang('No.')</th>
                         %%formHeadingHtml%%
                         <th style="width: 4%">@lang('actions.actions')</th>
