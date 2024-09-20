@@ -11,7 +11,7 @@ $(function() {
     let validation = FormValidation.formValidation(form,
         {
             locale: htmlLang === 'en' ? 'en_US' : 'vi_VN',
-            localization: htmlLang === 'en' ? 'en_US' : 'vi_VN',
+            localization: htmlLang === 'en' ? FormValidation.locales.en_US : FormValidation.locales.vi_VN,
             fields: {
                 name: {
                     validators: {
@@ -56,7 +56,7 @@ $(function() {
                     save()
                 }
             } else {
-                flash({message: __('Please enter information for the required fields'), level: 'danger'})
+                window.error({text: __('messages.error_notice')})
             }
         })
     })

@@ -5,9 +5,9 @@ namespace Cloudteam\CoreV2\Utils;
 class MoneyHelper
 {
     /**
-     * @param $amountAfterTax : Số tiền sau thuế
-     * @param $vatRate : Thuế suất [0,5,8,10]
-     * @param  int  $precision : Số phần thập phân, default là 0
+     * @param $amountAfterTax  : Số tiền sau thuế
+     * @param $vatRate  : Thuế suất [0,5,8,10]
+     * @param  int  $precision  : Số phần thập phân, default là 0
      *
      * @return float
      */
@@ -21,9 +21,9 @@ class MoneyHelper
     }
 
     /**
-     * @param $amountBeforeTax : Số tiền trước thuế
-     * @param $vatRate : Thuế suất [0,5,8,10]
-     * @param  int  $precision : Số phần thập phân, default là 0
+     * @param $amountBeforeTax  : Số tiền trước thuế
+     * @param $vatRate  : Thuế suất [0,5,8,10]
+     * @param  int  $precision  : Số phần thập phân, default là 0
      *
      * @return float
      */
@@ -33,7 +33,9 @@ class MoneyHelper
             $vatRate = 0;
         }
 
-        $taxValue = self::convertTaxNumberToValue($vatRate);
+        $multiple        = $amountBeforeTax / abs($amountBeforeTax);
+        $amountBeforeTax = abs($amountBeforeTax);
+        $taxValue        = self::convertTaxNumberToValue($vatRate);
 
         $tmpValue = $amountBeforeTax * $taxValue;
         $amount   = round($tmpValue, $precision);
@@ -46,13 +48,13 @@ class MoneyHelper
             return floor($amount);
         }
 
-        return substr($amount, -1) < 5 ? floor($amount) : ceil($amount);
+        return $multiple * (substr($amount, -1) < 5 ? floor($amount) : ceil($amount));
     }
 
     /**
-     * @param $amountAfterTax : Số tiền sau thuế
-     * @param $vatRate : Thuế suất [0,5,8,10]
-     * @param int $precision : Số phần thập phân, default là 0
+     * @param $amountAfterTax  : Số tiền sau thuế
+     * @param $vatRate  : Thuế suất [0,5,8,10]
+     * @param  int  $precision  : Số phần thập phân, default là 0
      *
      * @return float
      */
