@@ -20,6 +20,7 @@
 			%%formFieldsHtml%%
 		</div>
 
+		{!! $%%crudNameSingular%%->renderMetaInfoView() !!}
     </div>
 
     <div class="card-footer text-end bg-light-subtle">

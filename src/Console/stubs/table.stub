@@ -72,7 +72,7 @@ class {{modelName}}Table extends DataTable {
 	{
 	    [$canEdit{{modelName}}, $canDelete{{modelName}}] = $permissions;
 
-	    $buttonDelete = '';
+	    $buttonDelete = $buttonChangeState = '';
 
 		$buttonEdit = ${{crudNameSingular}}->generateButtonEdit();
         if ($canEdit{{modelName}}) {
@@ -85,6 +85,6 @@ class {{modelName}}Table extends DataTable {
 
         //$buttonView = HtmlAction::generateButtonView(${{crudNameSingular}}->getViewLink());
 
-        return $buttonEdit . $buttonDelete;
+        return $buttonChangeState.$buttonEdit.$buttonDelete;
 	}
 }
