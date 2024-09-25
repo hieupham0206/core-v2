@@ -326,17 +326,17 @@ class CrudMakeCommand extends Command
     private function makeController($crud, $namespace, $controllerName, $model): void
     {
         $this->call('crud:controller', [
-            'name'          => $controllerName,
-            '--crud'        => $crud,
-            '--model'       => $model,
-            '--namespace'   => $namespace,
+            'name'        => $controllerName,
+            '--crud'      => $crud,
+            '--model'     => $model,
+            '--namespace' => $namespace,
         ]);
     }
 
     private function makeService($crud, $model): void
     {
         $this->call('crud:service', [
-            'name'    => "{$model}Test",
+            'name'    => "{$model}",
             '--crud'  => $crud,
             '--model' => $model,
         ]);
@@ -345,13 +345,13 @@ class CrudMakeCommand extends Command
     private function makeFormRequest($model): void
     {
         $this->call('make:request', [
-            'name'    => "Store{$model}Request",
+            'name' => "$model\Store{$model}Request",
         ]);
         $this->call('make:request', [
-            'name'    => "Update{$model}Request",
+            'name' => "$model\Update{$model}Request",
         ]);
         $this->call('make:request', [
-            'name'    => "ChangeState{$model}Request",
+            'name' => "$model\ChangeState{$model}Request",
         ]);
     }
 

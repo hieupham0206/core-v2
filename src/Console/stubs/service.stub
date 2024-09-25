@@ -1,6 +1,7 @@
 <?php
 
-namespace DummyNamespace;
+namespace App\Services;
+
 use App\Models\{{modelName}};
 use App\Http\Actions\ChangeModelState;
 
@@ -27,7 +28,7 @@ class DummyClass
         return ${{crudNameSingular}};
     }
 
-    public function changeState({{modelName}} {{crudNameSingular}}, $state): bool
+    public function changeState({{modelName}} ${{crudNameSingular}}, $state): bool
     {
         return ChangeModelState::run(${{crudNameSingular}}, $state);
     }

@@ -62,6 +62,7 @@ class CoreV2ServiceProvider extends ServiceProvider
                     CrudTableCommand::class,
                     CrudViewCommand::class,
                     CrudTestCommand::class,
+                    CrudServiceCommand::class,
 
                     MakeLocalScopeCommand::class,
                     MakeModelMethodCommand::class,

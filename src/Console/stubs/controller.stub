@@ -3,11 +3,15 @@
 namespace DummyNamespace;
 
 BaseController
+use App\Http\Requests\{{modelName}}\ChangeState{{modelName}}Request;
+use App\Http\Requests\{{modelName}}\Store{{modelName}}Request;
+use App\Http\Requests\{{modelName}}\Update{{modelName}}Request;
+use App\Services\{{modelName}}Service;
 use App\Models\{{modelName}};
 use Cloudteam\CoreV2\{Tables\TableFacade, Utils\ModelFilter};
 use Illuminate\Support\Facades\DB;
 TableNamespace
-use Illuminate\{View\View, Http\Request, Http\JsonResponse, Http\RedirectResponse, Routing\Redirector};
+use Illuminate\{View\View, Http\JsonResponse};
 
 class DummyClass extends Controller
 {
@@ -85,7 +89,7 @@ class DummyClass extends Controller
         try {
             DB::beginTransaction();
 
-            ${{crudNameSingular}}Service->update($request->validated());
+            ${{crudNameSingular}}Service->update($request->validated(), ${{crudNameSingular}});
 
             DB::commit();
 
@@ -134,7 +138,7 @@ class DummyClass extends Controller
     public function changeState(ChangeState{{modelName}}Request $request, {{modelName}}Service ${{crudNameSingular}}Service, {{modelName}} ${{crudNameSingular}}): JsonResponse
     {
 		$state  = $request->input('state');
-        $result = ${{crudNameSingular}}Service->changeState($user, $state);
+        $result = ${{crudNameSingular}}Service->changeState(${{crudNameSingular}}, $state);
 
         if ($result) {
             return $this->asJson([
