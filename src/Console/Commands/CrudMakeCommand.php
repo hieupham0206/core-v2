@@ -89,7 +89,11 @@ class CrudMakeCommand extends Command
 
         $this->makeModel($table);
 
-        $this->makeController($crud, $namespace, $controllerName, $model, $validations);
+        $this->makeController($crud, $namespace, $controllerName, $model);
+
+        $this->makeService($crud, $model);
+
+        $this->makeFormRequest($model);
 
         $this->makeIndexTable($crud, $namespace, $model, $fields);
 
@@ -319,14 +323,35 @@ class CrudMakeCommand extends Command
         ]);
     }
 
-    private function makeController($crud, $namespace, $controllerName, $model, $validations): void
+    private function makeController($crud, $namespace, $controllerName, $model): void
     {
         $this->call('crud:controller', [
             'name'          => $controllerName,
             '--crud'        => $crud,
             '--model'       => $model,
-            '--validations' => $validations,
             '--namespace'   => $namespace,
+        ]);
+    }
+
+    private function makeService($crud, $model): void
+    {
+        $this->call('crud:service', [
+            'name'    => "{$model}Test",
+            '--crud'  => $crud,
+            '--model' => $model,
+        ]);
+    }
+
+    private function makeFormRequest($model): void
+    {
+        $this->call('make:request', [
+            'name'    => "Store{$model}Request",
+        ]);
+        $this->call('make:request', [
+            'name'    => "Update{$model}Request",
+        ]);
+        $this->call('make:request', [
+            'name'    => "ChangeState{$model}Request",
         ]);
     }
 

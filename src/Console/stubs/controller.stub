@@ -5,7 +5,7 @@ namespace DummyNamespace;
 BaseController
 use App\Models\{{modelName}};
 use Cloudteam\CoreV2\{Tables\TableFacade, Utils\ModelFilter};
-use App\Http\Actions\ChangeModelState;
+use Illuminate\Support\Facades\DB;
 TableNamespace
 use Illuminate\{View\View, Http\Request, Http\JsonResponse, Http\RedirectResponse, Routing\Redirector};
 
@@ -44,27 +44,14 @@ class DummyClass extends Controller
         ]);
     }
 
-    /**
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return RedirectResponse|JsonResponse|Redirector
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     * @throws \Exception
-     * @throws \Throwable
-     */
-    public function store(Request $request)
+    public function store(Store{{modelName}}Request $request, {{modelName}}Service ${{crudNameSingular}}Service)
     {
-        {{validationRules}}
-
-        $requestDatas = $request->except(['_token', '_method']);
-
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
 
-            ${{crudNameSingular}} = {{modelName}}::create($requestDatas);
+            ${{crudNameSingular}} = ${{crudNameSingular}}Service->store($request->validated());
 
-            \DB::commit();
+            DB::commit();
 
 			$redirectUrl = ${{crudNameSingular}}->getRedirectUrlAfterSave();
 
@@ -73,7 +60,7 @@ class DummyClass extends Controller
                 'redirect_url' => $redirectUrl,
             ], $redirectUrl);
         } catch (\Exception $e) {
-            \DB::rollBack();
+            DB::rollBack();
 
 			return $this->errorResponse($e);
         }
@@ -93,27 +80,14 @@ class DummyClass extends Controller
         ]);
     }
 
-    /**
-	 * @param Request $request
-     * @param  {{modelName}} ${{crudNameSingular}}
-     *
-     * @return RedirectResponse|JsonResponse|Redirector
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     * @throws \Exception
-     * @throws \Throwable
-     */
-    public function update(Request $request, {{modelName}} ${{crudNameSingular}})
+    public function update(Update{{modelName}}Request $request, {{modelName}}Service ${{crudNameSingular}}Service, {{modelName}} ${{crudNameSingular}})
     {
-        {{validationRules}}
-
-        $requestDatas = $request->except(['_token', '_method']);
-
         try {
-            \DB::beginTransaction();
-            ${{crudNameSingular}}->update($requestDatas);
+            DB::beginTransaction();
 
-            \DB::commit();
+            ${{crudNameSingular}}Service->update($request->validated());
+
+            DB::commit();
 
 			$redirectUrl = ${{crudNameSingular}}->getRedirectUrlAfterSave();
 
@@ -122,20 +96,20 @@ class DummyClass extends Controller
                 'redirect_url' => $redirectUrl,
             ], $redirectUrl);
         } catch (\Exception $e) {
-            \DB::rollBack();
+            DB::rollBack();
 
 			return $this->errorResponse($e);
         }
     }
 
-    public function destroy({{modelName}} ${{crudNameSingular}}): JsonResponse
+    public function destroy({{modelName}} ${{crudNameSingular}}, {{modelName}}Service ${{crudNameSingular}}Service): JsonResponse
     {
         try {
         	${{crudNameSingular}}->delete();
 
             return $this->asJson( [
                 'message' => __('messages.crud.deleted')
-            ] );
+            ]);
         } catch ( \Exception $e ) {
 			return $this->errorResponse($e);
         }
@@ -157,15 +131,10 @@ class DummyClass extends Controller
         ]);
     }
 
-    public function changeState(Request $request, ChangeModelState $action, {{modelName}} ${{crudNameSingular}}): JsonResponse
+    public function changeState(ChangeState{{modelName}}Request $request, {{modelName}}Service ${{crudNameSingular}}Service, {{modelName}} ${{crudNameSingular}}): JsonResponse
     {
-		$this->validate($request, [
-			'state' => 'numeric'
-		]);
-
-        $state = $request->input('state');
-
-        $result = $action->execute(${{crudNameSingular}}, $state);
+		$state  = $request->input('state');
+        $result = ${{crudNameSingular}}Service->changeState($user, $state);
 
         if ($result) {
             return $this->asJson([

@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 /**
  * Class CrudControllerCommand
  *
- * php artisan crud:controller BrandsController --crud=brands --model=Brand --namespace=Business --validations=name#required
+ * php artisan crud:controller BrandsController --crud=brands --model=Brand --namespace=Business
  *
  * @package Cloudteam\CoreV2\Console\Commands
  */
@@ -26,7 +26,6 @@ class CrudControllerCommand extends GeneratorCommand
                             {--crud= : Tên của table trong database.}
                             {--model= : The name of the Model.}
                             {--namespace= : Tên namespace của controller.}
-                            {--validations= : Khai báo field validation trong controller. (Default: --validations=name#required).}
     ';
 
     /**
@@ -70,26 +69,26 @@ class CrudControllerCommand extends GeneratorCommand
             $viewName            = 'modules.' . strtolower($namespace) . ".$viewName";
         }
 
-        $validations = rtrim($this->option('validations'), ';');
-
-        $validations = trim($validations);
-        if ($validations == '') {
-            $validations = 'name#required;';
-        }
-        $validationRules = '$this->validate($request, [';
-        $rules           = explode(';', $validations);
-        foreach ($rules as $v) {
-            if (trim($v) == '') {
-                continue;
-            }
-            // extract field name and args
-            $parts           = explode('#', $v);
-            $fieldName       = trim($parts[0]);
-            $rules           = trim($parts[1]);
-            $validationRules .= "\n\t\t\t'$fieldName' => '$rules',";
-        }
-        $validationRules = substr($validationRules, 0, -1); // lose the last comma
-        $validationRules .= "\n\t\t]);";
+        //$validations = rtrim($this->option('validations'), ';');
+        //
+        //$validations = trim($validations);
+        //if ($validations == '') {
+        //    $validations = 'name#required;';
+        //}
+        //$validationRules = '$this->validate($request, [';
+        //$rules           = explode(';', $validations);
+        //foreach ($rules as $v) {
+        //    if (trim($v) == '') {
+        //        continue;
+        //    }
+        //    // extract field name and args
+        //    $parts           = explode('#', $v);
+        //    $fieldName       = trim($parts[0]);
+        //    $rules           = trim($parts[1]);
+        //    $validationRules .= "\n\t\t\t'$fieldName' => '$rules',";
+        //}
+        //$validationRules = substr($validationRules, 0, -1); // lose the last comma
+        //$validationRules .= "\n\t\t]);";
 
         $baseController = '';
         if ($namespace !== '') {
@@ -111,7 +110,7 @@ class CrudControllerCommand extends GeneratorCommand
             ->replaceCrudNameSingular($stub, Str::singular(Str::studly($this->crudName)))
             ->replaceTableNameSingular($stub, Str::singular($this->crudName))
             ->replaceModelName($stub, $this->modelName)
-            ->replaceValidationRules($stub, $validationRules)
+            //->replaceValidationRules($stub, $validationRules)
             ->replaceClass($stub, $name);
     }
 

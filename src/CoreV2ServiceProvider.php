@@ -14,7 +14,7 @@ use Cloudteam\CoreV2\Console\Commands\MakeLocalScopeCommand;
 use Cloudteam\CoreV2\Console\Commands\MakeModelAttributeCommand;
 use Cloudteam\CoreV2\Console\Commands\MakeModelMethodCommand;
 use Cloudteam\CoreV2\Console\Commands\MakeModelRelationshipCommand;
-use Cloudteam\CoreV2\Console\Commands\MakeModelServiceCommand;
+use Cloudteam\CoreV2\Console\Commands\CrudServiceCommand;
 use Cloudteam\CoreV2\Console\Commands\MakeMultipleMigration;
 use Cloudteam\CoreV2\Console\Commands\MakeMultipleModel;
 use Illuminate\Support\ServiceProvider;
@@ -67,7 +67,7 @@ class CoreV2ServiceProvider extends ServiceProvider
                     MakeModelMethodCommand::class,
                     MakeModelAttributeCommand::class,
                     MakeModelRelationshipCommand::class,
-                    MakeModelServiceCommand::class,
+                    CrudServiceCommand::class,
                     MakeEnumCommand::class,
 
                     MakeMultipleMigration::class,

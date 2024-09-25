@@ -1,35 +1,34 @@
 <?php
 
 namespace DummyNamespace;
+use App\Models\{{modelName}};
+use App\Http\Actions\ChangeModelState;
 
-class DummyClass implements IBaseService
+class DummyClass
 {
-    /**
-     * @param array $datas
-     *
-     * @return mixed
-     */
-    public function store(array $datas)
+    public function store(array $datas): {{modelName}}
     {
-        // TODO: Implement store() functionality.
+        ${{crudNameSingular}} = {{modelName}}::create($datas);
+
+		return ${{crudNameSingular}};
     }
 
-    /**
-     * @param array $datas
-     * @param $model
-     *
-     * @return mixed
-     */
-    public function update(array $datas, $model)
+    public function update(array $datas, {{modelName}} ${{crudNameSingular}}): {{modelName}}
     {
-        // TODO: Implement update() functionality.
+        ${{crudNameSingular}}->update($datas);
+
+        return ${{crudNameSingular}};
     }
 
-    /**
-     * @param $model
-     */
-    public function delete($model)
+    public function delete({{modelName}} ${{crudNameSingular}}): {{modelName}}
     {
-        // TODO: Implement delete() functionality.
+        ${{crudNameSingular}}->delete();
+
+        return ${{crudNameSingular}};
+    }
+
+    public function changeState({{modelName}} {{crudNameSingular}}, $state): bool
+    {
+        return ChangeModelState::run(${{crudNameSingular}}, $state);
     }
 }
