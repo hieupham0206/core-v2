@@ -3,7 +3,6 @@
 namespace Cloudteam\CoreV2\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
-use Illuminate\Support\Str;
 
 class MakeEnumCommand extends GeneratorCommand
 {
@@ -18,36 +17,53 @@ class MakeEnumCommand extends GeneratorCommand
 
     protected function buildClass($name)
     {
-        $option      = $this->option('option');//COMPANY,1;BRANCH,2
-        $constOption = $constDescription = '';
+        $option           = $this->option('option');//COMPANY,1;BRANCH,2
+        $constOption      = '';
+        $constDescription = 'return match ($this) {'."\n";
+
+        $returnType = 'string';
+
         if ($option) {
             $options = explode(';', $option);
 
             foreach ($options as $option) {
                 [$option, $value] = explode(',', $option);
 
-                $optionDesc = ucfirst(camel2words($option));
+                if (is_numeric($value)) {
+                    $returnType = 'int';
+                }
 
-                $constOption      .= "public const $option = $value;" . "\n";
-                $constDescription .= "if (self::$option === ".'(int) $value'.") {
-										return __('{$optionDesc}');
-									}" . "\n";
+                $optionDesc = strtolower($option);
+
+                $constOption      .= "case $option = $value;"."\n\t";
+                $constDescription .= "\t\t\tself::$option => __('$optionDesc'),"."\n";
             }
         }
+
+        $constDescription .= "\t\t};";
+
         $stub = $this->files->get($this->getStub());
 
         return $this->replaceConstDescription($stub, $constDescription)
                     ->replaceConstOption($stub, $constOption)
+                    ->replaceReturnType($stub, $returnType)
                     ->replaceClass($stub, $name);
     }
 
     protected function getStub()
     {
-        return __DIR__ . '/../stubs/enum.stub';
+        return __DIR__.'/../stubs/enum.stub';
     }
 
     protected function replaceNamespace(&$stub, $name)
     {
+        return $this;
+    }
+
+    protected function replaceReturnType(&$stub, $desc): self
+    {
+        $stub = str_replace('{$returnType}', $desc, $stub);
+
         return $this;
     }
 
@@ -68,12 +84,12 @@ class MakeEnumCommand extends GeneratorCommand
     /**
      * Get the default namespace for the class.
      *
-     * @param string $rootNamespace
+     * @param  string  $rootNamespace
      *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Enums';
+        return $rootNamespace.'\Enums';
     }
 }

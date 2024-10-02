@@ -2,14 +2,13 @@
 
 namespace App\Enums;
 
-final class DummyClass extends BaseEnum
+enum DummyClass: {$returnType}
 {
-	{$constOption}
+	use ToSelectable;
 
-	public static function getDescription($value): string
+	{$constOption}
+	public function toFriendly(): string
 	{
 		{$constDescription}
-
-		return parent::getDescription($value);
 	}
 }
