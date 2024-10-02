@@ -12,8 +12,8 @@ class CrudServiceCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'crud:service
-                            {name : The name of the controller.}
+    protected $signature = 'crud:service
+                            {name : The name of the service.}
                             {--crud= : Tên của table trong database.}
                             {--model= : The name of the Model.}';
 

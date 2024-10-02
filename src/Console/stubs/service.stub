@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\{{modelName}};
-use App\Http\Actions\ChangeModelState;
+use App\Actions\ChangeModelState;
 
 class DummyClass
 {

@@ -68,7 +68,6 @@ class CoreV2ServiceProvider extends ServiceProvider
                     MakeModelMethodCommand::class,
                     MakeModelAttributeCommand::class,
                     MakeModelRelationshipCommand::class,
-                    CrudServiceCommand::class,
                     MakeEnumCommand::class,
 
                     MakeMultipleMigration::class,
