@@ -29,7 +29,7 @@ trait Enumerable
             $class = $this->getEnumClass($this->enumAttribute);
 
             if (str_contains($key, '_name')) {
-                return $class::getDescription($this->{$this->enumAttribute});
+                return $this->{$this->enumAttribute}->toFriendly();
             }
 
             return $class::toSelectArray();
