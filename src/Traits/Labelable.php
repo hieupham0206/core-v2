@@ -4,8 +4,10 @@ namespace Cloudteam\CoreV2\Traits;
 
 trait Labelable
 {
-    public function badgeLabel($text, $context = 'light-success', $customClass = '', $size = 'badge-lg'): string
+    public function badgeLabel($text, $context = 'light-success', $customClass = '', ?string $size = null): string
     {
+        $size ??= config('core.label.badge.size');
+
         return "<span class='fw-bold badge badge-$context $customClass $size'>$text</span>";
     }
 
