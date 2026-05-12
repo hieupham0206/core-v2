@@ -42,7 +42,7 @@ class HtmlAction
     public static function generateDropdownButton(array $buttons, ?string $btnClass = null): string
     {
         $btnClass ??= config('core.button.action.dropdown.class');
-        $icon     ??= config('core.button.action.view.icon');
+        $icon     ??= config('core.button.action.dropdown.icon');
 
         $buttonHtml = implode(' ', $buttons);
 
